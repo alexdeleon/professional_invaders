@@ -196,6 +196,7 @@ var redraw = function(calcBox) {
     ctx.drawImage(image, this.x, this.y, width, width);
     if (calcBox) {
       this.boundingBox.width = width;
+      this.boundingBox.height = width;
     }
   } else {
     var ctx = this.element.getContext('2d'),
@@ -227,10 +228,7 @@ var redraw = function(calcBox) {
 var isHit = function(object) {
   var box    = this.boundingBox,
       objBox = object.boundingBox;
-
-  console.log(JSON.stringify(box));
-  console.log(JSON.stringify(objBox));
-
+      
   if (this.y + box.height < object.y) return false;
   if (this.y > object.y + objBox.height) return false;
 
