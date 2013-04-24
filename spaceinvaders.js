@@ -309,8 +309,9 @@ var Invader = function(canvas, config) {
   element.width = this.maxWidth * this.pixelSize;
   element.height = this.maxHeight * this.pixelSize;
   this.element = canvas;
-  this.picture = invaders_pics[0];
+  this.picture = config.picture;
 
+  
   // here goes the bounding box in
   this.boundingBox = {
     width: 0, height: 0
@@ -498,7 +499,9 @@ var Game = function(canvas, config) {
           color:     color,
           pixelSize: config.pixelSize,
           x: x,
-          y: config.offset + y * MAX_PIXEL * config.pixelSize * 1.6
+          y: config.offset + y * MAX_PIXEL * config.pixelSize * 1.6,
+          picture : invaders_pics[Math.floor(invaders_pics.length * Math.random())]
+
         }));
         invadersWidth = Math.max(x, invadersWidth);
         ++numInvaders;

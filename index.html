@@ -18,16 +18,20 @@ function loadData() {
   IN.API.Connections("me")
     .fields(["pictureUrl","publicProfileUrl"])
     .result(function(result) {
-    profHTML = "";
+    
       for (var index in result.values) {
           profile = result.values[index]
           if (profile.pictureUrl) {
               invaders_pics.push(profile.pictureUrl);
           }    
       }
-      $("#connections").html(profHTML);
+      //load game
+      var script = document.createElement( 'script' );
+	  script.type = 'text/javascript';
+      script.src = 'spaceinvaders.js';
+      $('body').append( script );
     });
-    console.log(invaders_pics);
+    
 }
 </script>
 
@@ -82,7 +86,6 @@ function loadData() {
   <div id="game-wrap">
     <canvas id="game"></canvas>
   </div>
-  <script src="spaceinvaders.js"></script>
 
   <textarea class="invader-template" id="invader1">
 000100001000
