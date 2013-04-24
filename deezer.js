@@ -1,6 +1,6 @@
 var radio_electronic = 267;
 var radio_pop = 203;
-var follow_the_leader_son = 60702970;
+var follow_the_leader_song = 60702970;
 
 $.getScript("http://cdn-files.deezer.com/js/min/dz.js", function(data, textStatus, jqxhr) {
 	DZ.init({

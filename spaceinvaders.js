@@ -911,6 +911,7 @@ var Game = function(canvas, config) {
             removeScreenObject(boss.label);
             boss = null;
             $('#game-wrap').removeClass('boss');
+            playRadio(radio_electronic);
             bullets.splice(i, 1);
           }
         }
@@ -921,12 +922,14 @@ var Game = function(canvas, config) {
         removeScreenObject(boss.label);
         $('#game-wrap').removeClass('boss');
         boss = null;
+        playRadio(radio_electronic);
       }
     } else {
       if (!mothership && spawnBoss) {
         bossMovingRight = Math.random() < .5;
         var label = showText('GET THE BOSS', null, 30);
         $('#game-wrap').addClass('boss');
+        playTrack(follow_the_leader_song);
         boss = new Invader(canvas, {
           blueprint: EightBit.decode(config.boss.blueprint, config.boss.base),
           color:     config.boss.color,
