@@ -201,9 +201,7 @@ var redraw = function(calcBox) {
       this.boundingBox.height = width;
     }
     if (this.hasOwnProperty('hp')) {
-      console.log(this.hp);
       ctx.fillStyle = 'rgba(' + this.color + ', 0.5)';
-      console.log(this.x + ' ' + (this.y + height - 3) + ' ' + (this.x + this.hp * (this.width/bossHp)) + ' ' + ( this.y + height));
       ctx.fillRect(this.x, this.y + height - 3, this.hp * (this.width/bossHp), 3);
     }
   } else {
