@@ -201,9 +201,7 @@ var redraw = function(calcBox) {
       this.boundingBox.height = width;
     }
     if (this.hasOwnProperty('hp')) {
-      console.log(this.hp);
       ctx.fillStyle = 'rgba(' + this.color + ', 0.5)';
-      console.log(this.x + ' ' + (this.y + height - 3) + ' ' + (this.x + this.hp * (this.width/bossHp)) + ' ' + ( this.y + height));
       ctx.fillRect(this.x, this.y + height - 3, this.hp * (this.width/bossHp), 3);
     }
   } else {
@@ -324,6 +322,9 @@ var Invader = function(canvas, config) {
   }
   if (config['hp']) {
     this.hp = config.hp;
+  }
+  if (config['label']) {
+    this.label = config.label;
   }
   
   // here goes the bounding box in
@@ -653,13 +654,21 @@ var Game = function(canvas, config) {
     });
   }
 
-  function showText(text) {
+  function showText(text, x, y) {
     var obj = new Text(canvas, text, {
       color:     '205,212,75',
       pixelSize: 2
     });
-    obj.x = (canvas.width - obj.boundingBox.width) / 2;
-    obj.y = (canvas.height - obj.boundingBox.height) / 2;
+    if (x) {
+      obj.x = x;
+    } else {
+      obj.x = (canvas.width - obj.boundingBox.width) / 2;
+    }
+    if (y) {
+      obj.y = y;
+    } else {
+      obj.y = (canvas.height - obj.boundingBox.height) / 2;
+    }
     screenObjects.push(obj);
     return obj;
   }
@@ -899,6 +908,8 @@ var Game = function(canvas, config) {
           } else {
             addToScore(boss.points);
             boss.explode(particles);
+            boss.label.explode(particles);
+            removeScreenObject(boss.label);
             boss = null;
             bullets.splice(i, 1);
           }
@@ -907,11 +918,13 @@ var Game = function(canvas, config) {
 
       if (boss && (boss.x > canvas.width + boss.boundingBox.width || boss.x < -boss.boundingBox.width)) {
         // we missed the boss
+        removeScreenObject(boss.label);
         boss = null;
       }
     } else {
       if (!mothership && spawnBoss) {
         bossMovingRight = Math.random() < .5;
+        var label = showText('GET THE BOSS', null, 30);
         boss = new Invader(canvas, {
           blueprint: EightBit.decode(config.boss.blueprint, config.boss.base),
           color:     config.boss.color,
@@ -921,7 +934,8 @@ var Game = function(canvas, config) {
           points: 40,
           picture: 'boss1.png',
           width: 80,
-          hp: 5
+          hp: 5,
+          label: label
         });
         boss.x = bossMovingRight ? -boss.boundingBox.width : canvas.width;
         spawnBoss = false;
