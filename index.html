@@ -12,50 +12,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>  
 
-<script type="text/javascript">
-var invaders_pics = [];
-var companies_pics = [];
-var me_pic = null;
-function loadData() {
-  //Load my profile picture
-  IN.API.Profile("me").fields(["pictureUrl"])
-    .result(function(result) {
-     me_pic = result.values[0].pictureUrl;
-  });
-  
-  //Load my connections pictures and company logos
-  IN.API.Connections("me")
-    .fields(["pictureUrl", "positions"])
-    .result(function(result) {
-    
-      for (var index in result.values) {
-          profile = result.values[index]
-          if (profile.pictureUrl) {
-              invaders_pics.push(profile.pictureUrl);
-              if(profile.positions._total){
-              	for(var positionIndex = 0; positionIndex < profile.positions.values.length && positionIndex < 3; positionIndex++){
-              		var position = profile.positions.values[positionIndex];
-              		if(position.company){
-              			var companyId = position.company.id;
-              			if(companyId){
-            IN.API.Raw('/companies/'+companyId+':(logo-url)').method('get').result(function(result){
-            companies_pics.push(result.logoUrl);
-            })
-              			}
-              		}
-              	}
-              }
-          }    
-      }
-      //load game
-      var script = document.createElement( 'script' );
-	  script.type = 'text/javascript';
-      script.src = 'spaceinvaders.js';
-      $('body').append( script );
-    });
-    
-}
-</script>
+<script type="text/javascript" src="spaceinvaders.js"></script>
+<script type="text/javascript" src="linkedin.js"></script>
 
   <script src="highscore.js"></script>
   <style type="text/css" media="screen">
@@ -203,6 +161,12 @@ function loadData() {
 11111111111
 11111111111
   </textarea>
+
+  <script type="text/javascript">
+  function loadData() {
+    loadStuff(startGame);
+  }
+  </script>
 </body>
 </html>
 

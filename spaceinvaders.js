@@ -504,7 +504,7 @@ var Game = function(canvas, config) {
           pixelSize: config.pixelSize,
           x: x,
           y: config.offset + y * MAX_PIXEL * config.pixelSize * 1.6,
-          picture : invaders_pics[Math.floor(invaders_pics.length * Math.random())],
+          picture : connections_pics[Math.floor(connections_pics.length * Math.random())],
           width: 40
 
         }));
@@ -524,7 +524,7 @@ var Game = function(canvas, config) {
         pixelSize: config.pixelSize,
         x:         canvas.width / 2,
         y:         canvas.height - 50,
-        picture: me_pic
+        picture: self_pic
       });
 
       $(window).on('keydown keyup', keyHandler);
@@ -889,7 +889,7 @@ var Game = function(canvas, config) {
   }
 };
 
-$(document).ready(function() {
+var startGame = function() {
   var canvas = document.getElementById('canvas'),
       ctx    = canvas.getContext('2d'),
       color  = '255,0,0',
@@ -947,7 +947,7 @@ $(document).ready(function() {
       points:       20
     }
   });
-});
+}
 /**
   TODOs:
   touchstart/move/stop events for mobile usage
