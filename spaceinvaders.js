@@ -435,6 +435,8 @@ var Game = function(canvas, config) {
       lastMothershipTime = new Date(),
       mothershipMovingRight,
 
+      boss,
+
       lastLoopTime  = new Date(),
       ctx           = canvas.getContext('2d'),
       invadersWidth = 0,
@@ -857,7 +859,7 @@ var Game = function(canvas, config) {
         mothership = null;
       }
     } else {
-      if ((mothershipCount <= level || ended) && lastMothershipTime < loopTime - config.mothership.minTime*1000 && Math.random() < config.mothership.probability) {
+      if (!boss && (mothershipCount <= level || ended) && lastMothershipTime < loopTime - config.mothership.minTime*1000 && Math.random() < config.mothership.probability) {
         mothershipMovingRight = Math.random() < .5;
         mothership = new Invader(canvas, {
           blueprint: EightBit.decode(config.mothership.blueprint, config.mothership.base),
@@ -871,6 +873,41 @@ var Game = function(canvas, config) {
         });
         mothership.x = mothershipMovingRight ? -mothership.boundingBox.width : canvas.width;
         ++mothershipCount;
+      }
+    }
+
+    if (boss) {
+      boss.x += (bossMovingRight ? 1 : -1) * config.boss.speed * timeDiff;
+      boss.redraw();
+
+      for (var i=bullets.length; i--;) {
+        if (boss && boss.isHit(bullets[i])) {
+          addToScore(boss.points);
+          boss.explode(particles);
+          boss = null;
+          bullets.splice(i, 1);
+        }
+      }
+
+      if (boss && (boss.x > canvas.width + boss.boundingBox.width || boss.x < -boss.boundingBox.width)) {
+        // we missed the boss
+        boss = null;
+      }
+    } else {
+      if (!mothership && spawnBoss) {
+        bossMovingRight = Math.random() < .5;
+        boss = new Invader(canvas, {
+          blueprint: EightBit.decode(config.boss.blueprint, config.boss.base),
+          color:     config.boss.color,
+          pixelSize: config.pixelSize,
+          x: canvas.width,
+          y: 6,
+          points: 40,
+          picture: 'boss1.png',
+          width: 80
+        });
+        boss.x = bossMovingRight ? -boss.boundingBox.width : canvas.width;
+        spawnBoss = false;
       }
     }
 
@@ -934,7 +971,7 @@ var buildGame = function() {
     invaderVelY:  10,
     invaderBase:  12,
     gutter:       20,
-    offset:       60,
+    offset:       100,
 
     mothership:   {
       blueprint:    '48,252,1023,819,510',
@@ -945,7 +982,19 @@ var buildGame = function() {
       probability:  .004,
       speed:        60,
       points:       20
-    }
+    },
+
+    boss:         {
+      blueprint:    '48,252,1023,819,510',
+      base:         10,
+      color:        '232,36,16',
+      offset:       10,
+      minTime:      15,
+      probability:  .004,
+      speed:        30,
+      points:       50
+    },
+
   });
 }
 /**

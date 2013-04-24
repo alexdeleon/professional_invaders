@@ -12,6 +12,8 @@ var getMyPicture = function() {
 
 function getCompanyLogo(companyId) {
 
+  return null;
+  
   IN.API.Raw('/companies/'+companyId+':(logo-url)').method('get').result(
     function(result){
       return result.logoUrl;
@@ -35,12 +37,12 @@ function extractCompanyLogos(positions) {
 }
 
 function processConnections(result) {
-    
+  
   for (var index in result.values) {
     profile = result.values[index];
     if (profile.pictureUrl) {
       connections_pics.push(profile.pictureUrl);
-      if(profile.positions._total) {
+      if (companies_pics.length < 49 && profile.positions._total) {
         extractCompanyLogos(profile.positions.values);
       }
     }    
