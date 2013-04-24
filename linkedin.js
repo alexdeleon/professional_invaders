@@ -21,16 +21,13 @@ function getCompanyLogo(companyId) {
 }
 
 function extractCompanyLogos(positions) {
-
-  for(var positionIndex = 0; positionIndex < positions.length && positionIndex < 3; positionIndex++){
-    var position = positions[positionIndex];
+    var position = positions[0];
     if(position.company){
       var companyId = position.company.id;
       if(companyId){
         companies_pics.push(getCompanyLogo(companyId));
       }
     }
-  }
 
 }
 
