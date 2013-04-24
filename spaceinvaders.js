@@ -289,8 +289,8 @@ var Canon = function(canvas, config) {
   $.extend(this, config);
   this.blueprint = EightBit.decode(this.blueprint, this.base);
   this.element = canvas;
-  this.picture = 'me.jpg';
   this.width = 40;
+  this.picture = config.picture;
 
   // here goes the bounding box in
   this.boundingBox = {
@@ -523,7 +523,8 @@ var Game = function(canvas, config) {
         color:     '255,82,75',
         pixelSize: config.pixelSize,
         x:         canvas.width / 2,
-        y:         canvas.height - 50
+        y:         canvas.height - 50,
+        picture: me_pic
       });
 
       $(window).on('keydown keyup', keyHandler);

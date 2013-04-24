@@ -14,9 +14,17 @@
 
 <script type="text/javascript">
 var invaders_pics = [];
+var me_pic = null;
 function loadData() {
+  //Load my profile picture
+  IN.API.Profile("me").fields(["pictureUrl"])
+    .result(function(result) {
+     me_pic = result.values[0].pictureUrl;
+  });
+  
+  //Load my connections pictures
   IN.API.Connections("me")
-    .fields(["pictureUrl","publicProfileUrl"])
+    .fields(["pictureUrl"])
     .result(function(result) {
     
       for (var index in result.values) {
