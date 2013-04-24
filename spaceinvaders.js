@@ -983,7 +983,7 @@ var buildGame = function() {
 
   var gameCanvas = document.getElementById('game');
   gameCanvas.width  = 800;
-  gameCanvas.height = 600;
+  gameCanvas.height = 520;
 
   new Game(gameCanvas, {
     pixelSize:    3,
