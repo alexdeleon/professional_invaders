@@ -192,8 +192,9 @@ var redraw = function(calcBox) {
     image.src = this['picture'];
     var ctx = this.element.getContext('2d');
     // image is 80px wide
-    var width = 40;
-    ctx.drawImage(image, this.x, this.y, width, width);
+    var width = this.width;
+    var ratio = (1.0*this.width)/image.width;
+    ctx.drawImage(image, this.x, this.y, this.width, image.height*ratio);
     if (calcBox) {
       this.boundingBox.width = width;
       this.boundingBox.height = width;
@@ -289,6 +290,7 @@ var Canon = function(canvas, config) {
   this.blueprint = EightBit.decode(this.blueprint, this.base);
   this.element = canvas;
   this.picture = 'me.jpg';
+  this.width = 40;
 
   // here goes the bounding box in
   this.boundingBox = {
@@ -310,7 +312,9 @@ var Invader = function(canvas, config) {
   element.height = this.maxHeight * this.pixelSize;
   this.element = canvas;
   this.picture = config.picture;
-
+  if (config['width']) {
+    this.width = config.width;
+  }
   
   // here goes the bounding box in
   this.boundingBox = {
@@ -500,7 +504,8 @@ var Game = function(canvas, config) {
           pixelSize: config.pixelSize,
           x: x,
           y: config.offset + y * MAX_PIXEL * config.pixelSize * 1.6,
-          picture : invaders_pics[Math.floor(invaders_pics.length * Math.random())]
+          picture : invaders_pics[Math.floor(invaders_pics.length * Math.random())],
+          width: 40
 
         }));
         invadersWidth = Math.max(x, invadersWidth);
@@ -859,7 +864,9 @@ var Game = function(canvas, config) {
           pixelSize: config.pixelSize,
           x: canvas.width,
           y: 6,
-          points: 10
+          points: 10,
+          picture: "http://m.c.lnkd.licdn.com/media/p/3/000/062/2ff/080cae8.png",
+          width: 80
         });
         mothership.x = mothershipMovingRight ? -mothership.boundingBox.width : canvas.width;
         ++mothershipCount;
