@@ -27,7 +27,10 @@ function extractCompanyLogos(positions) {
     if(position.company){
       var companyId = position.company.id;
       if(companyId){
-        companies_pics.push(getCompanyLogo(companyId));
+        var logo = getCompanyLogo(companyId);
+        if (logo) {
+          companies_pics.push(logo);
+        }
       }
     }
   }
@@ -61,5 +64,4 @@ function loadStuff(callback) {
   
   //Load my connections pictures and company logos
   getConnectionData(callback);
-    
 }

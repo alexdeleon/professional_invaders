@@ -889,7 +889,7 @@ var Game = function(canvas, config) {
   }
 };
 
-var startGame = function() {
+var buildGame = function() {
   var canvas = document.getElementById('canvas'),
       ctx    = canvas.getContext('2d'),
       color  = '255,0,0',
