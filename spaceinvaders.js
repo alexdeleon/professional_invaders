@@ -866,7 +866,7 @@ var Game = function(canvas, config) {
           x: canvas.width,
           y: 6,
           points: 10,
-          picture: "http://m.c.lnkd.licdn.com/media/p/3/000/062/2ff/080cae8.png",
+          picture: companies_pics[Math.floor(Math.random() * companies_pics.length)],
           width: 80
         });
         mothership.x = mothershipMovingRight ? -mothership.boundingBox.width : canvas.width;
