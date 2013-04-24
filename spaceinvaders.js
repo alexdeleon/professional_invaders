@@ -311,7 +311,7 @@ var Invader = function(canvas, config) {
   element.width = this.maxWidth * this.pixelSize;
   element.height = this.maxHeight * this.pixelSize;
   this.element = canvas;
-  this.picture = 'me.jpg';
+  this.picture = invaders_pics[0];
 
   // here goes the bounding box in
   this.boundingBox = {
