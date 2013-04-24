@@ -194,10 +194,17 @@ var redraw = function(calcBox) {
     // image is 80px wide
     var width = this.width;
     var ratio = (1.0*this.width)/image.width;
-    ctx.drawImage(image, this.x, this.y, this.width, image.height*ratio);
+    var height = image.height*ratio;
+    ctx.drawImage(image, this.x, this.y, this.width, height);
     if (calcBox) {
       this.boundingBox.width = width;
       this.boundingBox.height = width;
+    }
+    if (this.hasOwnProperty('hp')) {
+      console.log(this.hp);
+      ctx.fillStyle = 'rgba(' + this.color + ', 0.5)';
+      console.log(this.x + ' ' + (this.y + height - 3) + ' ' + (this.x + this.hp * (this.width/bossHp)) + ' ' + ( this.y + height));
+      ctx.fillRect(this.x, this.y + height - 3, this.hp * (this.width/bossHp), 3);
     }
   } else {
     var ctx = this.element.getContext('2d'),
@@ -314,6 +321,9 @@ var Invader = function(canvas, config) {
   this.picture = config.picture;
   if (config['width']) {
     this.width = config.width;
+  }
+  if (config['hp']) {
+    this.hp = config.hp;
   }
   
   // here goes the bounding box in
@@ -882,10 +892,16 @@ var Game = function(canvas, config) {
 
       for (var i=bullets.length; i--;) {
         if (boss && boss.isHit(bullets[i])) {
-          addToScore(boss.points);
-          boss.explode(particles);
-          boss = null;
-          bullets.splice(i, 1);
+          if (boss.hp > 1) {
+            boss.hp -= 1;
+            bullets.splice(i, 1);
+            console.log(boss.hp);
+          } else {
+            addToScore(boss.points);
+            boss.explode(particles);
+            boss = null;
+            bullets.splice(i, 1);
+          }
         }
       }
 
@@ -904,7 +920,8 @@ var Game = function(canvas, config) {
           y: 6,
           points: 40,
           picture: 'boss1.png',
-          width: 80
+          width: 80,
+          hp: 5
         });
         boss.x = bossMovingRight ? -boss.boundingBox.width : canvas.width;
         spawnBoss = false;
