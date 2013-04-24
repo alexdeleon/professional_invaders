@@ -18,9 +18,14 @@
 
   <script src="highscore.js"></script>
   <style type="text/css" media="screen">
-    body {
-      background: #000;
-    }
+  	html { 
+  		background: url(bg.jpg) no-repeat center center fixed; 
+  		-webkit-background-size: cover;
+  		-moz-background-size: cover;
+  		-o-background-size: cover;
+  		background-size: cover;
+	}
+  
 
     .invader-template,
     .player-template {
@@ -28,14 +33,21 @@
     }
 
     #game-wrap {
-      border: 3px double #666;
-      display: inline-block;
+      width: 800px;
+      margin-left: auto ;
+  	  margin-right: auto ;
       position: relative;
+      background: rgba(0, 0, 0, .7);
+  	  border:1px solid black;
+  	  
     }
+	
 
     #code {
       color: #fff;
     }
+    
+ 
 
     @font-face {
     	font-family: '8bitoperator_jve';
@@ -50,7 +62,7 @@
 
   <script type="IN/Login" data-onAuth="loadData"></script>
 
-  
+  <article>
   <canvas id="canvas" style="display: none"></canvas>
   <textarea id="invader-blueprint" name="invader" rows="10" cols="10" style="display: none">
 000010010000
@@ -168,11 +180,14 @@
   var bossHp = 5;
 
   function loadData() {
-    loadStuff(buildGame);
+    loadStuff(startGame);
   }
   </script>
+  </article>
+  <footer>
   <div id="dz-root"></div>
-  <div id="player" style="width:100%;" align="left"></div>
+  <div id="player" style="width:100%;" align="center"></div>
+  </footer>
 </body>
 </html>
 
