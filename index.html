@@ -26,6 +26,10 @@
   		background-size: cover;
 	}
   
+  @-webkit-keyframes colorPulse {
+   0% {background: rgba(0, 0, 0, .7);}
+   100% {background: rgba(175, 50, 50, .7);}
+ }
 
     .invader-template,
     .player-template {
@@ -39,10 +43,11 @@
       position: relative;
       background: rgba(0, 0, 0, .7);
   	  border:1px solid black;
-  	  
     }
-	
-
+	 
+    #game-wrap.boss {
+       -webkit-animation: colorPulse 1s infinite alternate;
+    }
     #code {
       color: #fff;
     }

@@ -904,13 +904,13 @@ var Game = function(canvas, config) {
           if (boss.hp > 1) {
             boss.hp -= 1;
             bullets.splice(i, 1);
-            console.log(boss.hp);
           } else {
             addToScore(boss.points);
             boss.explode(particles);
             boss.label.explode(particles);
             removeScreenObject(boss.label);
             boss = null;
+            $('#game-wrap').removeClass('boss');
             bullets.splice(i, 1);
           }
         }
@@ -919,12 +919,14 @@ var Game = function(canvas, config) {
       if (boss && (boss.x > canvas.width + boss.boundingBox.width || boss.x < -boss.boundingBox.width)) {
         // we missed the boss
         removeScreenObject(boss.label);
+        $('#game-wrap').removeClass('boss');
         boss = null;
       }
     } else {
       if (!mothership && spawnBoss) {
         bossMovingRight = Math.random() < .5;
         var label = showText('GET THE BOSS', null, 30);
+        $('#game-wrap').addClass('boss');
         boss = new Invader(canvas, {
           blueprint: EightBit.decode(config.boss.blueprint, config.boss.base),
           color:     config.boss.color,
