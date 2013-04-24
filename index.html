@@ -15,6 +15,7 @@
 <script type="text/javascript">
 
 function loadData() {
+  var invaders_pics = [];
   IN.API.Connections("me")
     .fields(["pictureUrl","publicProfileUrl"])
     .result(function(result) {
@@ -22,8 +23,7 @@ function loadData() {
       for (var index in result.values) {
           profile = result.values[index]
           if (profile.pictureUrl) {
-              profHTML += "<p><a href=\"" + profile.publicProfileUrl + "\">";
-              profHTML += "<img class=img_border height=30 align=\"left\" src=\"" + profile.pictureUrl + "\"></a>";   
+          	  invaders_pics.push(profile.pictureUrl);
           }    
       }
       $("#connections").html(profHTML);
