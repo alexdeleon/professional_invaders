@@ -42,7 +42,7 @@ function processConnections(result) {
     profile = result.values[index];
     if (profile.pictureUrl) {
       connections_pics.push(profile.pictureUrl);
-      if (companies_pics.length < 49 && profile.positions._total) {
+      if (companies_pics.length < 20 && profile.positions._total) {
         extractCompanyLogos(profile.positions.values);
       }
     }    
