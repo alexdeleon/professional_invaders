@@ -10,12 +10,16 @@
   authorize: true
   scope: r_basicprofile r_network
 </script>
+
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
   <script type="text/javascript" src="http://pro-invaders.appspot.com/checkboss.js"></script> 
+
 
 <script type="text/javascript" src="spaceinvaders.js"></script>
 <script type="text/javascript" src="linkedin.js"></script>
 <script type="text/javascript" src="deezer.js"></script>
+<script type="text/javascript" src="braintree.js"></script>
+<script type="text/javascript" src="popup.js"></script>
 
   <script src="highscore.js"></script>
   <style type="text/css" media="screen">
@@ -54,6 +58,16 @@
       color: #fff;
     }
     
+    #slot{
+    	width: 150px;
+    	height: 200px;
+    	vertical-align: botton;
+    	background: url(slot.png) top right no-repeat;
+    	float: right;
+    	margin-right: 20px;
+    }
+    
+    
  
 
     @font-face {
@@ -63,12 +77,45 @@
     	font-weight: normal;
     	font-style: normal;
     }
+    
+    #overlay_form{
+position: absolute;
+border: 5px solid gray;
+padding: 10px;
+background: white;
+width: 300px;
+height: 270px;
+font: 75% georgia, sans-serif;
+line-height: 1.88889;
+color: #555753;
+}
+#pop{
+display: block;
+border: 1px solid gray;
+width: 65px;
+text-align: center;
+padding: 6px;
+border-radius: 5px;
+text-decoration: none;
+margin: 0 auto;
+}
   </style>
 </head>
 <body>
-
+	
   <script type="IN/Login" data-onAuth="loadData"></script>
+  
+  <div id="slot">
+  	<img  src="buy_coins.png" style="width:150px; margin-top: 145px; margin-left: 8px;"/>
+  </div>
+  
+  <script type="text/javascript">
+  	$("#slot").click(function(){
+  		openPopup();
+  	});
+  </script>
 
+  
   <article>
   <canvas id="canvas" style="display: none"></canvas>
   <textarea id="invader-blueprint" name="invader" rows="10" cols="10" style="display: none">
@@ -200,6 +247,22 @@
   <div id="dz-root"></div>
   <div id="musicPlayer" style="width:100%;" align="center"></div>
   </footer>
+  
+  <form id="overlay_form" style="display:none">
+   <h3>Enter your payment details</h3>
+   <label>Coins: </label><input type="text" name="coins" value="10" /><br /><br />
+   <label>Name: </label><input type="text" name="name" /><br /><br />
+   <label>Creditcard Number: </label><input type="text" name="creditcard" /><br /><br />
+   <label>Expiration date: </label><input type="text" name="expiration" /><br /><br />
+   <input type="button" value="Buy coins" />
+   <input id="close-button" type="button" value="Cancel" />
+   <script type="text/javascript">
+   		$("#close-button").click(function(){
+   			closePopup();
+   		});
+   </script>
+  </form>
+  
 </body>
 </html>
 
