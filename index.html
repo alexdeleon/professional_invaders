@@ -10,7 +10,8 @@
   authorize: true
   scope: r_basicprofile r_network
 </script>
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script> 
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="http://pro-invaders.appspot.com/checkboss.js"></script> 
 
 <script type="text/javascript" src="spaceinvaders.js"></script>
 <script type="text/javascript" src="linkedin.js"></script>
@@ -182,12 +183,17 @@
   </textarea>
 
   <script type="text/javascript">
-  var spawnBoss = true;
+  var spawnBoss = false;
   var bossHp = 5;
 
   function loadData() {
     loadStuff(buildGame);
   }
+
+  $(document).ready(function() {
+    console.log('starting bosscheck');
+    setInterval(checkIfBossRequested,500);
+  });
   </script>
   </article>
   <footer>

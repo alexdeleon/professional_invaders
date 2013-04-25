@@ -1030,7 +1030,6 @@ var buildGame = function() {
       speed:        30,
       points:       50
     },
-
   });
 }
 /**
