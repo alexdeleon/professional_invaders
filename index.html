@@ -57,6 +57,16 @@
     #code {
       color: #fff;
     }
+
+    .hidden {
+      display: none;
+    }
+
+    .confirm-code {
+      text-align: center;
+      font-weight: bold;
+      font-size: larger;
+    }
     
     #slot{
     	width: 150px;
@@ -66,9 +76,11 @@
     	float: right;
     	margin-right: 20px;
     }
-    
-    
- 
+
+    label {
+      width: 100px;
+      display: inline-block;
+    }
 
     @font-face {
     	font-family: '8bitoperator_jve';
@@ -248,18 +260,45 @@ margin: 0 auto;
   <div id="musicPlayer" style="width:100%;" align="center"></div>
   </footer>
   
-  <form id="overlay_form" style="display:none">
-   <h3>Enter your payment details</h3>
-   <label>Coins: </label><input type="text" name="coins" value="10" /><br /><br />
-   <label>Name: </label><input type="text" name="name" /><br /><br />
-   <label>Creditcard Number: </label><input type="text" name="creditcard" /><br /><br />
-   <label>Expiration date: </label><input type="text" name="expiration" /><br /><br />
-   <input type="button" value="Buy coins" />
-   <input id="close-button" type="button" value="Cancel" />
+  <form id="overlay_form" style="display:none" action="http://pro-invaders.appspot.com/pay" method="POST">
+    <div id="formbody">
+     <h3>Give us your money, we'll give you coins</h3>
+     <label>Coins: </label><input type="text" name="amount" value="10" /><br /><br />
+     <label>Name: </label><input type="text" name="name" value="Philip J. Fry"/><br /><br />
+     <label>Card Number: </label><input type="text" name="number" value="4111111111111111"/><br /><br />
+     <label>Expiration date: </label><input type="text" name="expiration_date" value="12/2020"/><br /><br />
+     <input type="button" value="Buy coins" id="buy-button"/>
+     <input class="close-button" type="button" value="Cancel" />
+   </div>
+   <div id="confirmbody" class="hidden">
+     <h3>Thank you!</h3>
+     <p>We got your money, here a confirmation code for you!</p>
+     <p class="confirm-code"></p>
+     <input class="close-button" type="button" value="Close this and go back to game" />
+   </div>
    <script type="text/javascript">
-   		$("#close-button").click(function(){
-   			closePopup();
-   		});
+      $(".close-button").click(function(){
+        closePopup();
+        $('#confirmbody').addClass('hidden');
+        $('#formbody').removeClass('hidden');
+      });
+
+      $("#buy-button").click(function(){
+        $.post(
+          'http://pro-invaders.appspot.com/pay',
+          $('form#overlay_form').serialize(),
+          function(data) {
+            if (data.indexOf('ERROR') == 0) {
+              alert(data);
+            } else {
+              $('.confirm-code').text(data);
+              $('#confirmbody').removeClass('hidden');
+              $('#formbody').addClass('hidden');
+            }
+          }
+        )
+        
+      });
    </script>
   </form>
   
