@@ -810,6 +810,7 @@ var Game = function(canvas, config) {
       var keepIt = true;
       for (var i=bullets.length; i--;) {
         if (keepIt && invader.isHit(bullets[i])) {
+          playSound();
           addToScore(invader.points);
           invader.explode(particles);
           keepIt = false;
@@ -1032,6 +1033,20 @@ var buildGame = function() {
     },
   });
 }
+
+var audioElement = document.createElement('audio');
+$(document).ready(function() {
+	audioElement.setAttribute('src', 'ouch.mp3');
+    audioElement.setAttribute('autoplay', 'autoplay');
+  	//audioElement.load()
+    $.get();
+});
+
+
+function playSound() {
+	audioElement.play();
+}
+ 
 /**
   TODOs:
   touchstart/move/stop events for mobile usage
