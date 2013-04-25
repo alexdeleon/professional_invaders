@@ -928,6 +928,11 @@ var Game = function(canvas, config) {
       if (!mothership && spawnBoss) {
         bossMovingRight = Math.random() < .5;
         var label = showText('GET THE BOSS', null, 30);
+        var summonLabel = showText(bossRequestor + ' summoned the CEO', null, 400);
+        setTimeout(function() {
+          summonLabel.explode(particles);
+          removeScreenObject(summonLabel);
+        }, 5000);
         $('#game-wrap').addClass('boss');
         playTrack(follow_the_leader_song);
         boss = new Invader(canvas, {

@@ -33,17 +33,17 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
     	self.response.headers['Access-Control-Allow-Origin'] = '*'
     	if (memcache.get('boss')):
-    		self.response.write('true')
+    		self.response.write(memcache.get('boss'))
     		memcache.replace('boss', False)
     	else:
     		self.response.write('false')
 
     def post(self):
     	self.response.headers['Access-Control-Allow-Origin'] = '*'
-    	if memcache.get('boss') == None:
-    		memcache.add('boss', True)
+        if memcache.get('boss') == None:
+    		memcache.add('boss', self.request.get('from'))
     	else:
-    		memcache.replace('boss', True)
+    		memcache.replace('boss', self.request.get('from'))
 
 class Payment(webapp2.RequestHandler):
     def get(self):

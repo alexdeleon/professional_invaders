@@ -96,10 +96,11 @@ border: 5px solid gray;
 padding: 10px;
 background: white;
 width: 300px;
-height: 270px;
+height: 300px;
 font: 75% georgia, sans-serif;
-line-height: 1.88889;
+line-height: 1.5;
 color: #555753;
+background: #fff url(money.png) no-repeat 0px 145px fixed;
 }
 #pop{
 display: block;
@@ -242,7 +243,8 @@ margin: 0 auto;
   </textarea>
 
   <script type="text/javascript">
-  var spawnBoss = false;
+  var spawnBoss = true;
+  var bossRequestor = "Alessandro Bahgat";
   var bossHp = 5;
 
   function loadData() {
@@ -266,15 +268,19 @@ margin: 0 auto;
      <label>Coins: </label><input type="text" name="amount" value="10" /><br /><br />
      <label>Name: </label><input type="text" name="name" value="Philip J. Fry"/><br /><br />
      <label>Card Number: </label><input type="text" name="number" value="4111111111111111"/><br /><br />
-     <label>Expiration date: </label><input type="text" name="expiration_date" value="12/2020"/><br /><br />
-     <input type="button" value="Buy coins" id="buy-button"/>
-     <input class="close-button" type="button" value="Cancel" />
+     <label>Expiration date: </label><input type="text" name="expiration_date" value="12/2020"/><br /><br /><br /><br /><br />
+     <div style="text-align: center">
+       <input type="button" value="Buy coins" id="buy-button"/>
+       <input class="close-button" type="button" value="Cancel" />
+     </div>
    </div>
    <div id="confirmbody" class="hidden">
      <h3>Thank you!</h3>
      <p>We got your money, here a confirmation code for you!</p>
-     <p class="confirm-code"></p>
-     <input class="close-button" type="button" value="Close this and go back to game" />
+     <p class="confirm-code"></p><br /><br /><br /><br /><br /><br /><br /><br />
+     <div style="text-align: center">
+       <input class="close-button" type="button" value="Close this and go back to game" />
+     </div>
    </div>
    <script type="text/javascript">
       $(".close-button").click(function(){
