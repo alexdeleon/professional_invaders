@@ -11,6 +11,8 @@ var getMyPicture = function() {
 }
 
 function getCompanyLogo(companyId, array) {
+
+  return null;
   
   IN.API.Raw('/companies/'+companyId+':(logo-url)').method('get').result(
     function(result){
