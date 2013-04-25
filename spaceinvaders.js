@@ -902,6 +902,7 @@ var Game = function(canvas, config) {
 
       for (var i=bullets.length; i--;) {
         if (boss && boss.isHit(bullets[i])) {
+          playSound();
           if (boss.hp > 1) {
             boss.hp -= 1;
             bullets.splice(i, 1);
@@ -1041,14 +1042,13 @@ var buildGame = function() {
 
 var audioElement = document.createElement('audio');
 $(document).ready(function() {
-	audioElement.setAttribute('src', 'ouch.mp3');
-    audioElement.setAttribute('autoplay', 'autoplay');
-  	//audioElement.load()
-    $.get();
+	audioElement.setAttribute('autoplay', 'autoplay');
+  	audioElement.load();
 });
 
 
 function playSound() {
+	audioElement.setAttribute('src', 'ouch.mp3');
 	audioElement.play();
 }
  
