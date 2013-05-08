@@ -10,13 +10,13 @@
 // requestAnim shim layer by Paul Irish
 window.requestAnimFrame = (function(){
   return  window.requestAnimationFrame       ||
-          window.webkitRequestAnimationFrame ||
-          window.mozRequestAnimationFrame    ||
-          window.oRequestAnimationFrame      ||
-          window.msRequestAnimationFrame     ||
-          function(/* function */ callback, /* DOMElement */ element){
-            window.setTimeout(callback, 1000 / 60);
-          };
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame    ||
+  window.oRequestAnimationFrame      ||
+  window.msRequestAnimationFrame     ||
+  function(/* function */ callback, /* DOMElement */ element){
+    window.setTimeout(callback, 1000 / 60);
+  };
 })();
 
 var ArcadeFont = {
@@ -85,43 +85,43 @@ var ArcadeFont = {
     '9': '62,99,99,126,96,99,62',
     '0': '62,99,99,99,99,99,62',
     '(': '24,12,6,6,6,12,24',
-    ')': '6,12,24,24,24,12,6',
-    '{': '24,12,12,6,12,12,24',
-    '}': '6,12,12,24,12,12,6',
-    '<': '48,24,12,6,12,24,48',
-    '>': '3,6,12,24,12,6,3',
-    "'": '24,24,12,0,0,0,0',
-    '"': '102,102,51,0,0,0,0',
-    '.': '0,0,0,0,0,12,12',
-    '!': '12,12,12,12,0,0,12',
-    '-': '0,0,0,63,0,0,0',
-    '+': '0,12,12,63,12,12,0',
-    ',': '0,0,0,0,0,12,12,6',
-    ':': '0,12,12,0,0,12,12',
-    ';': '0,12,12,0,0,12,12,6',
-    '?': '62,99,48,24,12,0,12',
-    '$': '8,62,3,62,96,63,8',
-    '%': '67,99,48,24,12,102,98',
-    '&': '28,54,28,14,123,51,110',
-    '=': '0,0,63,0,63,0,0',
-    '_': '0,0,0,0,0,0,127',
-    '^': '8,28,54,99,0,0,0',
-    '°': '60,102,102,60,0,0,0',
-    '€': '62,99,15,3,15,99,62',
-    '#': '20,20,62,20,62,20,20',
-    '*': '0,54,28,127,28,54,0',
-    '/': '64,96,48,24,12,6,2',
-    '\\': '2,6,12,24,48,96,64',
-    '[': '30,6,6,6,6,6,30',
-    ']': '60,48,48,48,48,48,60'
-  },
+      ')': '6,12,24,24,24,12,6',
+'{': '24,12,12,6,12,12,24',
+'}': '6,12,12,24,12,12,6',
+'<': '48,24,12,6,12,24,48',
+'>': '3,6,12,24,12,6,3',
+"'": '24,24,12,0,0,0,0',
+'"': '102,102,51,0,0,0,0',
+'.': '0,0,0,0,0,12,12',
+'!': '12,12,12,12,0,0,12',
+'-': '0,0,0,63,0,0,0',
+'+': '0,12,12,63,12,12,0',
+',': '0,0,0,0,0,12,12,6',
+':': '0,12,12,0,0,12,12',
+';': '0,12,12,0,0,12,12,6',
+'?': '62,99,48,24,12,0,12',
+'$': '8,62,3,62,96,63,8',
+'%': '67,99,48,24,12,102,98',
+'&': '28,54,28,14,123,51,110',
+'=': '0,0,63,0,63,0,0',
+'_': '0,0,0,0,0,0,127',
+'^': '8,28,54,99,0,0,0',
+'°': '60,102,102,60,0,0,0',
+'€': '62,99,15,3,15,99,62',
+'#': '20,20,62,20,62,20,20',
+'*': '0,54,28,127,28,54,0',
+'/': '64,96,48,24,12,6,2',
+'\\': '2,6,12,24,48,96,64',
+'[': '30,6,6,6,6,6,30',
+']': '60,48,48,48,48,48,60'
+},
 
   // space between letters
   gutter: 2,
 
   blueprint: function(text) {
     var blueprint = [],
-        letter, letterCode, line, g, i, l, j;
+    letter, letterCode, line, g, i, l, j;
     text = text.toUpperCase();
     for (i in text) {
       letterCode = this.alphabet[text[i]].split(',');
@@ -144,8 +144,8 @@ var ArcadeFont = {
 var EightBit = {
   encode: function(str) {
     var codes = [],
-        lines = str.split('\n'),
-        i, l;
+    lines = str.split('\n'),
+    i, l;
     for (i = 0, l = lines.length; i<l; ++i) {
       codes.push(this.encodeLine(lines[i]));
     }
@@ -154,8 +154,8 @@ var EightBit = {
 
   decode: function(code, base) {
     var result = [],
-        lines = code.split(','),
-        i, l;
+    lines = code.split(','),
+    i, l;
     for (i = 0, l = lines.length; i<l; ++i) {
       result.push(this.decodeNumber(lines[i], base));
     }
@@ -172,7 +172,7 @@ var EightBit = {
 
   decodeNumber: function(nr, base) {
     var line = '',
-        i, p;
+    i, p;
     for (i = base; i--;) {
       p = Math.pow(2, i);
       if (p <= nr) {
@@ -206,8 +206,8 @@ var redraw = function(calcBox) {
     }
   } else {
     var ctx = this.element.getContext('2d'),
-        rows = this.blueprint.split('\n'),
-        row, pixel;
+    rows = this.blueprint.split('\n'),
+    row, pixel;
     ctx.fillStyle = 'rgba(' + this.color + ', ' + 1 + ')';
     for (var y=0,yl=rows.length; y<=yl; ++y) {
       row = rows[y] || '';
@@ -233,8 +233,8 @@ var redraw = function(calcBox) {
 // calculates if element hits this element
 var isHit = function(object) {
   var box    = this.boundingBox,
-      objBox = object.boundingBox;
-      
+  objBox = object.boundingBox;
+  
   if (this.y + box.height < object.y) return false;
   if (this.y > object.y + objBox.height) return false;
 
@@ -245,8 +245,8 @@ var isHit = function(object) {
 
 var explode = function(particles) {
   var row,
-      rows = this.blueprint.split('\n'),
-      pixel, variR, variG, variB, colors;
+  rows = this.blueprint.split('\n'),
+  pixel, variR, variG, variB, colors;
   for (var y=0,yl=rows.length; y<=yl; ++y) {
     row = rows[y] || '';
     for (var x=0,xl=row.length; x<=xl; ++x) {
@@ -413,12 +413,12 @@ var Particle = function(canvas, config) {
 
 var Game = function(canvas, config) {
   var MAX_PIXEL     = 12,
-      IS_MOBILE     = window.DeviceOrientationEvent,
+  IS_MOBILE     = window.DeviceOrientationEvent,
 
-      invaders      = [],
-      bullets       = [],
-      enemyBullets  = [],
-      particles     = [],
+  invaders      = [],
+  bullets       = [],
+  enemyBullets  = [],
+  particles     = [],
 
       // points of the player
       score         = 0,
@@ -471,38 +471,38 @@ var Game = function(canvas, config) {
 
       canon;
 
-  startGame();
-  start();
+      startGame();
+      start();
 
-  loop();
+      loop();
 
-  function startGame() {
-    scoreDisplay = new Text(canvas, score, {
-      color:     '205,212,75',
-      pixelSize: 2,
-      x:         canvas.width - 50,
-      y:         5
-    });
-    scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
-    screenObjects.push(scoreDisplay);
-  }
+      function startGame() {
+        scoreDisplay = new Text(canvas, score, {
+          color:     '205,212,75',
+          pixelSize: 2,
+          x:         canvas.width - 50,
+          y:         5
+        });
+        scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
+        screenObjects.push(scoreDisplay);
+      }
 
-  function start() {
-    var possibleColors = [
+      function start() {
+        var possibleColors = [
 //          '0,255,128',
 //          '3,28,255',
 //          '255,255,0',
-      '255,151,94',
-      '255,182,240',
-      '195,255,232',
-      '182,255,252',
-      '197,255,182',
-      '255,242,117'
-    ];
-    var invaderRow,
-        y = 0,
-        x = 0,
-        numRows = 0,
+'255,151,94',
+'255,182,240',
+'195,255,232',
+'182,255,252',
+'197,255,182',
+'255,242,117'
+];
+var invaderRow,
+y = 0,
+x = 0,
+numRows = 0,
         color; // width of greatest row
     // create invaders
     $.each(config.invaders, function(type, code) {
@@ -566,8 +566,8 @@ var Game = function(canvas, config) {
   function keyHandler(event) {
     if (!canon) { return; }
     var value   = event.type === 'keydown',
-        keyCode = event.which,
-        time;
+    keyCode = event.which,
+    time;
     if (keyCode === 37 || keyCode === 65) {
       // right on A or Arrow left
       canon.left = value;
@@ -636,10 +636,10 @@ var Game = function(canvas, config) {
         screenObjects.splice(index, 1);
       }
 //         setTimeout(function() {
-        ended = true;
-        enterHighscore();
+  ended = true;
+  enterHighscore();
 //          }, 500);
-    }, 3000);
+  }, 3000);
 
   }
 
@@ -739,11 +739,11 @@ var Game = function(canvas, config) {
     scoreDisplay.setText(score);
     scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
 //        config.scoreBox.html(score);
-  }
+}
 
-  function loop() {
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    var loopTime  = new Date(),
+function loop() {
+  ctx.clearRect(0,0, canvas.width, canvas.height);
+  var loopTime  = new Date(),
         timeDiff  = (loopTime - lastLoopTime) / 1000, // in ms
         switchDir = false;
 
@@ -772,10 +772,10 @@ var Game = function(canvas, config) {
       invader.x += (movingRight ? 1 : -1) * speed * timeDiff;
       invader.redraw();
       if ((movingRight && invader.x + invader.boundingBox.width > (canvas.width - xOffset)) ||
-          (!movingRight && invader.x < xOffset)) {
+        (!movingRight && invader.x < xOffset)) {
         switchDir = true;
-      }
-    });
+    }
+  });
     if (switchDir) {
       canon && eachInvader(function(invader) {
         invader.y += config.invaderVelY;
@@ -971,15 +971,15 @@ var Game = function(canvas, config) {
     lastLoopTime = loopTime;
     doLoop && window.requestAnimFrame(loop);
 //        doLoop && setTimeout(loop, 1000 / 30);
-  }
+}
 };
 
 var buildGame = function() {
   var canvas = document.getElementById('canvas'),
-      ctx    = canvas.getContext('2d'),
-      color  = '255,0,0',
-      PIXEL_SIZE = 10,
-      MAX_PIXEL  = 12;
+  ctx    = canvas.getContext('2d'),
+  color  = '255,0,0',
+  PIXEL_SIZE = 10,
+  MAX_PIXEL  = 12;
   canvas.width = MAX_PIXEL * PIXEL_SIZE;
   canvas.height = MAX_PIXEL * PIXEL_SIZE;
   var invader = new Invader(canvas, {
@@ -1015,40 +1015,40 @@ var buildGame = function() {
       '#invader1': '264,144,1020,1020,3951,3069,3069,144,264,0',
       '#invader7': '260,1161,1533,1911,1022,1022,260,514'//,
 //          '#invader5': '165,90,60,36'
-    },
-    invaderVelY:  10,
-    invaderBase:  12,
-    gutter:       20,
-    offset:       100,
+},
+invaderVelY:  10,
+invaderBase:  12,
+gutter:       20,
+offset:       100,
 
-    mothership:   {
-      blueprint:    '48,252,1023,819,510',
-      base:         10,
-      color:        '232,36,16',
-      offset:       10,
-      minTime:      15,
-      probability:  .004,
-      speed:        60,
-      points:       20
-    },
+mothership:   {
+  blueprint:    '48,252,1023,819,510',
+  base:         10,
+  color:        '232,36,16',
+  offset:       10,
+  minTime:      15,
+  probability:  .004,
+  speed:        60,
+  points:       20
+},
 
-    boss:         {
-      blueprint:    '48,252,1023,819,510',
-      base:         10,
-      color:        '232,36,16',
-      offset:       10,
-      minTime:      15,
-      probability:  .004,
-      speed:        30,
-      points:       50
-    },
-  });
+boss:         {
+  blueprint:    '48,252,1023,819,510',
+  base:         10,
+  color:        '232,36,16',
+  offset:       10,
+  minTime:      15,
+  probability:  .004,
+  speed:        30,
+  points:       50
+},
+});
 }
 
 var audioElement = document.createElement('audio');
 $(document).ready(function() {
 	audioElement.setAttribute('autoplay', 'autoplay');
-  	audioElement.load();
+ audioElement.load();
 });
 
 
@@ -1056,7 +1056,7 @@ function playSound() {
 	audioElement.setAttribute('src', 'ouch.mp3');
 	audioElement.play();
 }
- 
+
 /**
   TODOs:
   touchstart/move/stop events for mobile usage
@@ -1067,4 +1067,4 @@ function playSound() {
 
   maybe in second version:
     bunkers
-*/
+    */

@@ -18,7 +18,6 @@
   <script type="text/javascript" src="spaceinvaders.js"></script>
   <script type="text/javascript" src="linkedin.js"></script>
   <script type="text/javascript" src="deezer.js"></script>
-  <script type="text/javascript" src="braintree.js"></script>
   <script type="text/javascript" src="popup.js"></script>
 
   <script src="highscore.js"></script>
@@ -126,18 +125,6 @@ label {
 <body>
   <script type="IN/Login" data-onAuth="loadData">
   
-  </script>
-  
-  
-  
-  <div id="slot">
-  	<img  src="buy_coins.png" style="width:150px; margin-top: 145px; margin-left: 8px;"/>
-  </div>
-  
-  <script type="text/javascript">
-  $("#slot").click(function(){
-    openPopup();
-  });
   </script>
 
   
@@ -274,52 +261,6 @@ label {
     <div id="dz-root"></div>
     <div id="musicPlayer" style="width:100%;" align="center"></div>
   </footer>
-  
-  <form id="overlay_form" style="display:none" action="http://pro-invaders.appspot.com/pay" method="POST">
-    <div id="formbody">
-     <h3>Give us your money, we'll give you coins</h3>
-     <label>Coins: </label><input type="text" name="amount" value="10" /><br /><br />
-     <label>Name: </label><input type="text" name="name" value="Philip J. Fry"/><br /><br />
-     <label>Card Number: </label><input type="text" name="number" value="4111111111111111"/><br /><br />
-     <label>Expiration date: </label><input type="text" name="expiration_date" value="12/2020"/><br /><br /><br /><br /><br />
-     <div style="text-align: center">
-       <input type="button" value="Buy coins" id="buy-button"/>
-       <input class="close-button" type="button" value="Cancel" />
-     </div>
-   </div>
-   <div id="confirmbody" class="hidden">
-     <h3>Thank you!</h3>
-     <p>We got your money, here a confirmation code for you!</p>
-     <p class="confirm-code"></p><br /><br /><br /><br /><br /><br /><br /><br />
-     <div style="text-align: center">
-       <input class="close-button" type="button" value="Close this and go back to game" />
-     </div>
-   </div>
-   <script type="text/javascript">
-   $(".close-button").click(function(){
-    closePopup();
-    $('#confirmbody').addClass('hidden');
-    $('#formbody').removeClass('hidden');
-  });
-
-   $("#buy-button").click(function(){
-    $.post(
-      'http://pro-invaders.appspot.com/pay',
-      $('form#overlay_form').serialize(),
-      function(data) {
-        if (data.indexOf('ERROR') == 0) {
-          alert(data);
-        } else {
-          $('.confirm-code').text(data);
-          $('#confirmbody').removeClass('hidden');
-          $('#formbody').addClass('hidden');
-        }
-      }
-      )
-    
-  });
-   </script>
- </form>
  
 </body>
 </html>
