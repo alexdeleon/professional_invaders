@@ -119,14 +119,25 @@ label {
 	z-index: 100;
 }
 
+#playAgainBtt{
+  background: url('play_again_button.png');
+  position: fixed;
+  top: 230px;
+  left: 40%;
+  z-index: 100;
+  width: 344px;
+  height: 109px;
+  border: 0;
+  display: none;
+}
 
 </style>
 </head>
 <body>
   <script type="IN/Login" data-onAuth="loadData">
-  
   </script>
 
+  <a data-role="button" data-icon="forward" data-iconpos="notext" id="playAgainBtt"></a>
   
   <article>
     <canvas id="canvas" style="display: none"></canvas>
@@ -253,6 +264,10 @@ label {
     $(document).ready(function() {
       console.log('starting bosscheck');
       setInterval(checkIfBossRequested,500);
+      $('#playAgainBtt').click(function(){
+       $('#playAgainBtt').css("display", "none");
+       loadStuff(buildGame); 
+      });
     });
     </script>
     <div style="text-align: center; font-size: larger; width: 800px; margin-left: auto; margin-right: auto; color: gold; background-color: rgba(0,0,0,0.75); font-family: courier; padding-top: 10px; padding-bottom: 10px;">Send an email to BOSS@INVADERS.ABAHGAT.COM</div>

@@ -636,8 +636,8 @@ numRows = 0,
         screenObjects.splice(index, 1);
       }
 //         setTimeout(function() {
-  ended = true;
-  enterHighscore();
+      ended = true;
+      enterHighscore();
 //          }, 500);
   }, 3000);
 
@@ -650,7 +650,8 @@ numRows = 0,
       removeScreenObject(label);
       nameDisplay.explode(particles);
       removeScreenObject(nameDisplay);
-      sendHighscore(nameInput.val());
+      showPlayAgainButton();
+      //sendHighscore(nameInput.val());
     });
   }
 
@@ -739,6 +740,10 @@ numRows = 0,
     scoreDisplay.setText(score);
     scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
 //        config.scoreBox.html(score);
+}
+
+function showPlayAgainButton(){
+  $("#playAgainBtt").css("display", "block");
 }
 
 function loop() {
