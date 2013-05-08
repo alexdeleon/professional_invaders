@@ -932,14 +932,13 @@ function loop() {
         playRadio(radio_electronic);
       }
     } else {
-      if (!mothership && spawnBoss) {
+      if (!mothership && !spawnBoss && Math.random() < 0.0005) {
+        spawnBoss = true;
+        setTimeout(function() {
+          spawnBoss = false;
+        }, 10000);
         bossMovingRight = Math.random() < .5;
         var label = showText('GET THE BOSS', null, 30);
-        var summonLabel = showText(bossRequestor + ' summoned the CEO', null, 400);
-        setTimeout(function() {
-          summonLabel.explode(particles);
-          removeScreenObject(summonLabel);
-        }, 5000);
         $('#game-wrap').addClass('boss');
         playTrack(follow_the_leader_song);
         boss = new Invader(canvas, {
@@ -955,7 +954,6 @@ function loop() {
           label: label
         });
         boss.x = bossMovingRight ? -boss.boundingBox.width : canvas.width;
-        spawnBoss = false;
       }
     }
 
