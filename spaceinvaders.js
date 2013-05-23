@@ -440,13 +440,10 @@ var Game = function(canvas, config) {
       bulletSpeed   = 150,
       enemyBulletSpeed = 100,
 
-      // mothership stuff
-      mothership,
-      mothershipCount    = 0,
-      lastMothershipTime = new Date(),
-      mothershipMovingRight,
-
       boss,
+      bossCount    = 0,
+      lastBossTime = new Date(),
+      bossMovingRight,
 
       lastLoopTime  = new Date(),
       ctx           = canvas.getContext('2d'),
@@ -870,42 +867,6 @@ function loop() {
     }
 
     // create/draw/move mothership
-    if (mothership) {
-      mothership.x += (mothershipMovingRight ? 1 : -1) * config.mothership.speed * timeDiff;
-      mothership.redraw();
-
-      for (var i=bullets.length; i--;) {
-        if (mothership.isHit(bullets[i])) {
-          addToScore(mothership.points);
-          mothership.explode(particles);
-          mothership = null;
-          bullets.splice(i, 1);
-          lastMothershipTime = loopTime;
-        }
-      }
-
-      if (mothership && (mothership.x > canvas.width + 20 || mothership.x < mothership.boundingBox.width - 20)) {
-        // we missed the mothership
-        mothership = null;
-      }
-    } else {
-      if (!boss && (mothershipCount <= level || ended) && lastMothershipTime < loopTime - config.mothership.minTime*1000 && Math.random() < config.mothership.probability) {
-        mothershipMovingRight = Math.random() < .5;
-        mothership = new Invader(canvas, {
-          blueprint: EightBit.decode(config.mothership.blueprint, config.mothership.base),
-          color:     config.mothership.color,
-          pixelSize: config.pixelSize,
-          x: canvas.width,
-          y: 6,
-          points: 10,
-          picture: companies_pics[Math.floor(Math.random() * companies_pics.length)],
-          width: 80
-        });
-        mothership.x = mothershipMovingRight ? -mothership.boundingBox.width : canvas.width;
-        ++mothershipCount;
-      }
-    }
-
     if (boss) {
       boss.x += (bossMovingRight ? 1 : -1) * config.boss.speed * timeDiff;
       boss.redraw();
@@ -925,6 +886,7 @@ function loop() {
             $('#game-wrap').removeClass('boss');
             playRadio(radio_electronic);
             bullets.splice(i, 1);
+            lastBossTime = loopTime;
           }
         }
       }
@@ -937,11 +899,7 @@ function loop() {
         playRadio(radio_electronic);
       }
     } else {
-      if (!mothership && !spawnBoss && Math.random() < 0.0005) {
-        spawnBoss = true;
-        setTimeout(function() {
-          spawnBoss = false;
-        }, 10000);
+      if ((bossCount <= level || ended) && lastBossTime < loopTime - config.boss.minTime*1000 && Math.random() < config.boss.probability) {
         bossMovingRight = Math.random() < .5;
         var label = showText('GET THE BOSS', null, 30);
         $('#game-wrap').addClass('boss');
@@ -959,6 +917,7 @@ function loop() {
           label: label
         });
         boss.x = bossMovingRight ? -boss.boundingBox.width : canvas.width;
+        ++bossCount;
       }
     }
 
@@ -1023,17 +982,6 @@ invaderVelY:  10,
 invaderBase:  12,
 gutter:       20,
 offset:       100,
-
-mothership:   {
-  blueprint:    '48,252,1023,819,510',
-  base:         10,
-  color:        '232,36,16',
-  offset:       10,
-  minTime:      15,
-  probability:  .004,
-  speed:        60,
-  points:       20
-},
 
 boss:         {
   blueprint:    '48,252,1023,819,510',
