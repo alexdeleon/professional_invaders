@@ -486,20 +486,17 @@ var Game = function(canvas, config) {
 
       function start() {
         var possibleColors = [
-//          '0,255,128',
-//          '3,28,255',
-//          '255,255,0',
-'255,151,94',
-'255,182,240',
-'195,255,232',
-'182,255,252',
-'197,255,182',
-'255,242,117'
-];
-var invaderRow,
-y = 0,
-x = 0,
-numRows = 0,
+        '255,151,94',
+        '255,182,240',
+        '195,255,232',
+        '182,255,252',
+        '197,255,182',
+        '255,242,117'
+        ];
+        var invaderRow,
+        y = 0,
+        x = 0,
+        numRows = 0,
         color; // width of greatest row
     // create invaders
     $.each(config.invaders, function(type, code) {
@@ -538,14 +535,6 @@ numRows = 0,
       });
 
       $(window).on('keydown keyup', keyHandler);
-
-      /*var one = true;
-      window.ondevicemotion = function(event) {
-        one && console.log(event);
-        one = false;
-        showEndScreen(IS_MOBILE ? "MOBILE": "false");
-      }
-      window.addEventListener*/
     }
     if (level > 5) {
       enemyShootProbability += incEnemyShootProb;
@@ -632,12 +621,9 @@ numRows = 0,
       if (index > -1) {
         screenObjects.splice(index, 1);
       }
-//         setTimeout(function() {
       ended = true;
       enterHighscore();
-//          }, 500);
-  }, 3000);
-
+    }, 3000);
   }
 
   function enterHighscore() {
@@ -736,8 +722,8 @@ numRows = 0,
     score += points;
     scoreDisplay.setText(score);
     scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
-//        config.scoreBox.html(score);
-}
+    // config.scoreBox.html(score);
+  }
 
 function showPlayAgainButton(){
   $("#playAgainBtt").css("display", "block");
@@ -911,7 +897,7 @@ function loop() {
           x: canvas.width,
           y: 6,
           points: 40,
-          picture: 'boss1.png',
+          picture: 'boss.png',
           width: 80,
           hp: 5,
           label: label
@@ -933,7 +919,7 @@ function loop() {
     lastLoopTime = loopTime;
     doLoop && window.requestAnimFrame(loop);
 //        doLoop && setTimeout(loop, 1000 / 30);
-}
+  }
 };
 
 var buildGame = function() {
@@ -976,24 +962,24 @@ var buildGame = function() {
       '#invader6': '240,2046,4095,3687,4095,504,876,3075',
       '#invader1': '264,144,1020,1020,3951,3069,3069,144,264,0',
       '#invader7': '260,1161,1533,1911,1022,1022,260,514'//,
-//          '#invader5': '165,90,60,36'
-},
-invaderVelY:  10,
-invaderBase:  12,
-gutter:       20,
-offset:       100,
+    //          '#invader5': '165,90,60,36'
+    },
+    invaderVelY:  10,
+    invaderBase:  12,
+    gutter:       20,
+    offset:       100,
 
-boss:         {
-  blueprint:    '48,252,1023,819,510',
-  base:         10,
-  color:        '232,36,16',
-  offset:       10,
-  minTime:      15,
-  probability:  .001,
-  speed:        30,
-  points:       50
-},
-});
+    boss:         {
+      blueprint:    '48,252,1023,819,510',
+      base:         10,
+      color:        '232,36,16',
+      offset:       10,
+      minTime:      15,
+      probability:  .001,
+      speed:        30,
+      points:       50
+    },
+  });
 }
 
 var audioElement = document.createElement('audio');
