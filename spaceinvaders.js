@@ -975,7 +975,7 @@ var buildGame = function() {
       color:        '232,36,16',
       offset:       10,
       minTime:      15,
-      probability:  .001,
+      probability:  .0005,
       speed:        30,
       points:       50
     },
