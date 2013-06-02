@@ -13,7 +13,7 @@ $.getScript("http://cdn-files.deezer.com/js/min/dz.js", function(data, textStatu
 			width : 650,
 			height : 80,
 			onload : function(){
- 				playRadio(radio_electronic);
+ 				// playRadio(radio_electronic);
 			}
 		}
 	});

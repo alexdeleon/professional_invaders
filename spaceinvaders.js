@@ -482,6 +482,7 @@ var Game = function(canvas, config) {
         });
         scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
         screenObjects.push(scoreDisplay);
+        playRadio(radio_electronic);
       }
 
       function start() {
@@ -923,29 +924,7 @@ function loop() {
 };
 
 var buildGame = function() {
-  var canvas = document.getElementById('canvas'),
-  ctx    = canvas.getContext('2d'),
-  color  = '255,0,0',
-  PIXEL_SIZE = 10,
-  MAX_PIXEL  = 12;
-  canvas.width = MAX_PIXEL * PIXEL_SIZE;
-  canvas.height = MAX_PIXEL * PIXEL_SIZE;
-  var invader = new Invader(canvas, {
-    blueprint: $('#invader-blueprint').val(),
-    color:     color,
-    maxWidth:  MAX_PIXEL,
-    maxHeight: MAX_PIXEL,
-    pixelSize: PIXEL_SIZE,
-    x: 0, y: 0
-  });
-  var codeDiv = $('#code');
-  $('#invader-blueprint').keyup(function() {
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    invader.blueprint = $('#invader-blueprint').val();
-    invader.redraw();
-    codeDiv.html(EightBit.encode(invader.blueprint));
-  });
-
+  
   var gameCanvas = document.getElementById('game');
   gameCanvas.width  = 800;
   gameCanvas.height = 520;
