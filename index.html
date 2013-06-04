@@ -1,8 +1,11 @@
 <!DOCTYPE HTML>
-<html>
+<html prefix="og: http://ogp.me/ns#">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta property="og:title" content="Professional Invaders" />
+  <meta property="og:url" content="http://alexdeleon.github.io/professional_invaders/" />
+  <meta property="og:image" content="thumb.png" />
   <title>Professional Invaders</title>
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="http://platform.linkedin.com/in.js">
@@ -74,9 +77,13 @@
     top: 0px;
     left: 0px;
     color: yellow;
-    padding: 150px 50px;
+    padding: 75px 50px;
     text-align: center;
     line-height: 1.75em;
+  }
+
+  #splash img {
+    border: 2px solid yellow;
   }
 
   #playAgainBtt{
@@ -91,6 +98,56 @@
     display: none;
   }
 
+  footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    background-color: rgba(0,0,0, .5);
+    padding-top: 10px;
+    height: 35px;
+    width: 100%;
+    color: yellow;
+    text-align: center;
+    font-family: courier;
+    font-size: 10px;
+  }
+
+  footer a {
+    color: yellow;
+  }
+
+  kbd {
+    padding: 0.1em 0.6em;
+    border: 1px solid #ccc;
+    font-size: 11px;
+    font-family: Arial,Helvetica,sans-serif;
+    background-color: black;
+    color: yellow;
+    -moz-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2),0 0 0 2px #cc0 inset;
+    -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2),0 0 0 2px #cc0 inset;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2),0 0 0 2px #cc0 inset;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 0 0.1em;
+    text-shadow: 0 1px 0 #cc0;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .controls {
+    float: left;
+    width: 400px;
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  .shares {
+    float: right;
+    width: 400px;
+  }
+
 </style>
 </head>
 <body>
@@ -102,6 +159,10 @@
   <a data-role="button" data-icon="forward" data-iconpos="notext" id="playAgainBtt"></a>
   
   <article>
+    <div style="float: right;">
+    <div id="dz-root"></div>
+    <div id="musicPlayer" style="width:100%;" align="center"></div>
+    </div>
     <div id="game-wrap">
       <canvas id="game"></canvas>
       <div id="splash">
@@ -113,6 +174,11 @@
         <!-- Linkedin login -->
         <script type="IN/Login" data-onAuth="loadData">
         </script>
+
+        <br/>
+        <br/>
+
+        <img src="thumb.png"/>
       </div>
     </div>
     <script type="text/javascript">
@@ -132,9 +198,40 @@
     });
     </script>
   </article>
+
   <footer>
-    <div id="dz-root"></div>
-    <div id="musicPlayer" style="width:100%;" align="center"></div>
+    <div class="controls">
+      <kbd>←</kbd> <kbd>→</kbd> move, <kbd>space</kbd> shoot
+    </div>
+
+    <div class="shares">
+      <div class="g-plusone" data-size="medium"></div>
+
+      <script type="IN/Share" data-counter="right"></script>
+      
+      <div class="fb-like" data-href="http://alexdeleon.github.io/professional_invaders/" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true" data-font="arial" data-colorscheme="light"></div>
+      
+      
+      <a href="https://twitter.com/share" class="twitter-share-button" data-via="abahgat" data-related="abahgat">Tweet</a>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+      
+      <script type="text/javascript">
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/plusone.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+      
+    </div>
+
+    Brought to you by
+    <a href="http://abahgat.com/">Alessandro Bahgat</a> and <a href="http://www.alexdeleon.name/">Alexander De Leon</a> <br/>
+    This hack was built at the TWN Conference 2013 Hack Battle &ndash; <a href="">Read more</a>
+
+    
+
   </footer>
 
   <!-- Google Analytics -->
@@ -147,6 +244,15 @@
   ga('create', 'UA-41295041-1', 'alexdeleon.github.io');
   ga('send', 'pageview');
   </script>
+
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
  
 </body>
 </html>
