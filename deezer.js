@@ -5,15 +5,16 @@ var follow_the_leader_song = 60702970;
 $.getScript("http://cdn-files.deezer.com/js/min/dz.js", function(data, textStatus, jqxhr) {
 	DZ.init({
 		appId  : '116545',
-		channelUrl : 'http://localhost/channel.php',
+		channelUrl : 'http://localhost/channel.html',
 		player : {
 			container : 'musicPlayer',
-			cover : true,
+			cover : false,
 			playlist : false,
-			width : 650,
-			height : 80,
+			width : 200,
+			height : 520,
+			format: 'vertical',
 			onload : function(){
- 				playRadio(radio_electronic);
+ 				// playRadio(radio_electronic);
 			}
 		}
 	});

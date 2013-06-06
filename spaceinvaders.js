@@ -440,13 +440,10 @@ var Game = function(canvas, config) {
       bulletSpeed   = 150,
       enemyBulletSpeed = 100,
 
-      // mothership stuff
-      mothership,
-      mothershipCount    = 0,
-      lastMothershipTime = new Date(),
-      mothershipMovingRight,
-
       boss,
+      bossCount    = 0,
+      lastBossTime = new Date(),
+      bossMovingRight,
 
       lastLoopTime  = new Date(),
       ctx           = canvas.getContext('2d'),
@@ -485,24 +482,22 @@ var Game = function(canvas, config) {
         });
         scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
         screenObjects.push(scoreDisplay);
+        playRadio(radio_electronic);
       }
 
       function start() {
         var possibleColors = [
-//          '0,255,128',
-//          '3,28,255',
-//          '255,255,0',
-'255,151,94',
-'255,182,240',
-'195,255,232',
-'182,255,252',
-'197,255,182',
-'255,242,117'
-];
-var invaderRow,
-y = 0,
-x = 0,
-numRows = 0,
+        '255,151,94',
+        '255,182,240',
+        '195,255,232',
+        '182,255,252',
+        '197,255,182',
+        '255,242,117'
+        ];
+        var invaderRow,
+        y = 0,
+        x = 0,
+        numRows = 0,
         color; // width of greatest row
     // create invaders
     $.each(config.invaders, function(type, code) {
@@ -541,14 +536,6 @@ numRows = 0,
       });
 
       $(window).on('keydown keyup', keyHandler);
-
-      /*var one = true;
-      window.ondevicemotion = function(event) {
-        one && console.log(event);
-        one = false;
-        showEndScreen(IS_MOBILE ? "MOBILE": "false");
-      }
-      window.addEventListener*/
     }
     if (level > 5) {
       enemyShootProbability += incEnemyShootProb;
@@ -635,12 +622,9 @@ numRows = 0,
       if (index > -1) {
         screenObjects.splice(index, 1);
       }
-//         setTimeout(function() {
       ended = true;
       enterHighscore();
-//          }, 500);
-  }, 3000);
-
+    }, 3000);
   }
 
   function enterHighscore() {
@@ -739,8 +723,8 @@ numRows = 0,
     score += points;
     scoreDisplay.setText(score);
     scoreDisplay.x = canvas.width - scoreDisplay.boundingBox.width - 5;
-//        config.scoreBox.html(score);
-}
+    // config.scoreBox.html(score);
+  }
 
 function showPlayAgainButton(){
   $("#playAgainBtt").css("display", "block");
@@ -870,42 +854,6 @@ function loop() {
     }
 
     // create/draw/move mothership
-    if (mothership) {
-      mothership.x += (mothershipMovingRight ? 1 : -1) * config.mothership.speed * timeDiff;
-      mothership.redraw();
-
-      for (var i=bullets.length; i--;) {
-        if (mothership.isHit(bullets[i])) {
-          addToScore(mothership.points);
-          mothership.explode(particles);
-          mothership = null;
-          bullets.splice(i, 1);
-          lastMothershipTime = loopTime;
-        }
-      }
-
-      if (mothership && (mothership.x > canvas.width + 20 || mothership.x < mothership.boundingBox.width - 20)) {
-        // we missed the mothership
-        mothership = null;
-      }
-    } else {
-      if (!boss && (mothershipCount <= level || ended) && lastMothershipTime < loopTime - config.mothership.minTime*1000 && Math.random() < config.mothership.probability) {
-        mothershipMovingRight = Math.random() < .5;
-        mothership = new Invader(canvas, {
-          blueprint: EightBit.decode(config.mothership.blueprint, config.mothership.base),
-          color:     config.mothership.color,
-          pixelSize: config.pixelSize,
-          x: canvas.width,
-          y: 6,
-          points: 10,
-          picture: companies_pics[Math.floor(Math.random() * companies_pics.length)],
-          width: 80
-        });
-        mothership.x = mothershipMovingRight ? -mothership.boundingBox.width : canvas.width;
-        ++mothershipCount;
-      }
-    }
-
     if (boss) {
       boss.x += (bossMovingRight ? 1 : -1) * config.boss.speed * timeDiff;
       boss.redraw();
@@ -925,6 +873,7 @@ function loop() {
             $('#game-wrap').removeClass('boss');
             playRadio(radio_electronic);
             bullets.splice(i, 1);
+            lastBossTime = loopTime;
           }
         }
       }
@@ -937,11 +886,7 @@ function loop() {
         playRadio(radio_electronic);
       }
     } else {
-      if (!mothership && !spawnBoss && Math.random() < 0.0005) {
-        spawnBoss = true;
-        setTimeout(function() {
-          spawnBoss = false;
-        }, 10000);
+      if ((bossCount <= level || ended) && lastBossTime < loopTime - config.boss.minTime*1000 && Math.random() < config.boss.probability) {
         bossMovingRight = Math.random() < .5;
         var label = showText('GET THE BOSS', null, 30);
         $('#game-wrap').addClass('boss');
@@ -953,12 +898,13 @@ function loop() {
           x: canvas.width,
           y: 6,
           points: 40,
-          picture: 'boss1.png',
+          picture: 'boss.png',
           width: 80,
           hp: 5,
           label: label
         });
         boss.x = bossMovingRight ? -boss.boundingBox.width : canvas.width;
+        ++bossCount;
       }
     }
 
@@ -974,33 +920,11 @@ function loop() {
     lastLoopTime = loopTime;
     doLoop && window.requestAnimFrame(loop);
 //        doLoop && setTimeout(loop, 1000 / 30);
-}
+  }
 };
 
 var buildGame = function() {
-  var canvas = document.getElementById('canvas'),
-  ctx    = canvas.getContext('2d'),
-  color  = '255,0,0',
-  PIXEL_SIZE = 10,
-  MAX_PIXEL  = 12;
-  canvas.width = MAX_PIXEL * PIXEL_SIZE;
-  canvas.height = MAX_PIXEL * PIXEL_SIZE;
-  var invader = new Invader(canvas, {
-    blueprint: $('#invader-blueprint').val(),
-    color:     color,
-    maxWidth:  MAX_PIXEL,
-    maxHeight: MAX_PIXEL,
-    pixelSize: PIXEL_SIZE,
-    x: 0, y: 0
-  });
-  var codeDiv = $('#code');
-  $('#invader-blueprint').keyup(function() {
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    invader.blueprint = $('#invader-blueprint').val();
-    invader.redraw();
-    codeDiv.html(EightBit.encode(invader.blueprint));
-  });
-
+  
   var gameCanvas = document.getElementById('game');
   gameCanvas.width  = 800;
   gameCanvas.height = 520;
@@ -1017,35 +941,24 @@ var buildGame = function() {
       '#invader6': '240,2046,4095,3687,4095,504,876,3075',
       '#invader1': '264,144,1020,1020,3951,3069,3069,144,264,0',
       '#invader7': '260,1161,1533,1911,1022,1022,260,514'//,
-//          '#invader5': '165,90,60,36'
-},
-invaderVelY:  10,
-invaderBase:  12,
-gutter:       20,
-offset:       100,
+    //          '#invader5': '165,90,60,36'
+    },
+    invaderVelY:  10,
+    invaderBase:  12,
+    gutter:       20,
+    offset:       100,
 
-mothership:   {
-  blueprint:    '48,252,1023,819,510',
-  base:         10,
-  color:        '232,36,16',
-  offset:       10,
-  minTime:      15,
-  probability:  .004,
-  speed:        60,
-  points:       20
-},
-
-boss:         {
-  blueprint:    '48,252,1023,819,510',
-  base:         10,
-  color:        '232,36,16',
-  offset:       10,
-  minTime:      15,
-  probability:  .004,
-  speed:        30,
-  points:       50
-},
-});
+    boss:         {
+      blueprint:    '48,252,1023,819,510',
+      base:         10,
+      color:        '232,36,16',
+      offset:       10,
+      minTime:      15,
+      probability:  .00005,
+      speed:        30,
+      points:       50
+    },
+  });
 }
 
 var audioElement = document.createElement('audio');

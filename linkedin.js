@@ -10,36 +10,11 @@ var getMyPicture = function() {
   });
 }
 
-function getCompanyLogo(companyId, array) {
-  IN.API.Raw('/companies/'+companyId+':(logo-url)').method('get').result(
-    function(result){
-      if(result.logoUrl){
-     	 array.push(result.logoUrl);
-      }
-    }
-  )
-        
-}
-
-function extractCompanyLogos(positions) {
-    var position = positions[0];
-    if(position.company){
-      var companyId = position.company.id;
-      if(companyId){
-        getCompanyLogo(companyId, companies_pics);
-      }
-    }
-
-}
-
 function processConnections(result, callback) {
   for (var index in result.values) {
     profile = result.values[index];
     if (profile.pictureUrl) {
       connections_pics.push(profile.pictureUrl);
-      if (companies_pics.length < 20 && profile.positions._total) {
-        extractCompanyLogos(profile.positions.values);
-      }
     }    
   }
   callback();
